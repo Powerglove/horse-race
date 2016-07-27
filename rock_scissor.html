@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+<title>Rock-Scissor-Paper</title>
+<meta charset="utf-8">
+</head>
+<body>
+    <h1>Rock-Scissor-Paper</h1>
+<script>
+
+var Game   = function() {
+
+    this.players = [];
+
+}; 
+
+Game.prototype.addPlayer = function(player) {
+
+    this.players.push(player);
+
+};
+
+Game.prototype.start = function() {
+
+    if(this.players.length === 2) {
+
+        console.log("Player " + this.players[0].name + " hat " + this.players[0].mapping[this.players[0].value]);
+
+        console.log("Player " + this.players[1].name + " hat " + this.players[0].mapping[this.players[1].value]);
+
+        // DRAW
+
+        if (this.players[0].value === this.players[1].value) {
+
+            return "Draw";
+
+        } else if(!this.doesThePlayerWin(this.players[0], this.players[1])){
+
+            // PLAYER 1 WINS
+
+            this.players[0].won += 1;
+
+            this.players[1].lose += 1;
+
+            return console.log(this.players[0].name + " gewinnt");
+
+        } else {
+
+            this.players[0].lose += 1;
+
+            this.players[1].won  += 1;
+
+            return console.log(this.players[1].name + " gewinnt");
+
+        }
+
+    }
+
+};
+
+// player1 vs. Player2
+
+// returns true if player1 is winning
+
+Game.prototype.doesThePlayerWin = function (player1, player2) {
+
+    return (player1.value > player2.value) && (player1.value === 3 && player2.value === 1 );
+
+}
+
+// ----------------------------------
+
+
+var Player = function(name) {
+
+    this.name   = name;
+
+    this.value  = "";
+
+    this.won    = 0;
+
+    this.lose   = 0;
+
+};
+
+   // 3     > 2    > 1       < 3
+
+// Paper > Rock > Scissor > Paper
+
+Player.prototype.mapping = {
+
+    1: 'scissor',
+
+    2: 'rock',
+
+    3: 'paper'
+
+};
+
+Player.prototype.setValue = function(value) {
+
+    if(value <= 3 && value > 0) {
+
+        this.value = value;
+
+    } else {
+
+        console.error('Value is not correct')
+
+    }
+
+};
+
+Player.prototype.setValueAutomatic = function() {
+
+    this.value = Math.floor(Math.random() * (3 - 1)) + 1;
+
+};
+
+var player1 = new Player('Johanna');
+
+player1.setValue(3);
+
+var player2 = new Player('CPU');
+
+player2.setValueAutomatic();
+
+var game = new Game();
+
+game.addPlayer(player1);
+
+game.addPlayer(player2);
+
+game.start();
+
+</script>
+</body>
+</html>

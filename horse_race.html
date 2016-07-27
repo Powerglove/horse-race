@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+<title>Horse Race</title>
+<meta charset="utf-8">
+</head>
+<body>
+    <h1>Horse Race</h1>
+<script>
+
+var Race = function() {
+
+    this.horses = [];
+
+}; 
+
+Race.prototype.addHorse = function(horse) {
+
+    this.horses.push(horse);
+
+};
+
+Race.prototype.start = function() {
+
+    if(this.horses.length === 2) {
+
+        console.log("Horse " + this.horses[0].name + " has random number " + this.horses[0].value);
+
+        console.log("Horse " + this.horses[1].name + " has random number " + this.horses[0].value);
+
+        // DRAW
+
+        if (this.horses[0].value === this.horses[1].value) {
+
+            return console.log("Draw");
+
+        } else if (this.horses[0].value >= this.horses[1].value) {
+
+            // PLAYER 1 WINS
+
+            this.horses[0].won += 1;
+
+            this.horses[1].lose += 1;
+
+            return console.log(this.horses[0].name + " gewinnt");
+        } else {
+
+            this.horses[0].lose += 1;
+
+            this.horses[1].won  += 1;
+
+            return console.log(this.horses[1].name + " gewinnt");
+
+        }
+
+    }
+
+};
+
+var Horse = function(name) {
+
+    this.name   = name;
+
+    this.value  = "";
+
+    this.won    = 0;
+
+    this.lose   = 0;
+};
+
+Horse.prototype.setValueAutomatic1 = function() {
+
+    this.value = Math.floor(Math.random() * (5 - 1)) + 1;
+
+};
+
+Horse.prototype.setValueAutomatic2 = function() {
+
+    this.value = Math.floor(Math.random() * (5 - 1)) + 1;
+
+};
+
+var horse1 = new Horse('Rainbow Dash');
+horse1.setValueAutomatic1();
+
+var horse2 = new Horse('Cloudy Quartz');
+horse2.setValueAutomatic2();
+
+var race = new Race();
+
+race.addHorse(horse1);
+race.addHorse(horse2);
+
+race.start();
+
+
+</script>
+</body>
+</html>
